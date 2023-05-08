@@ -3,8 +3,12 @@ Config.ImpoundFee = 500 -- Impound Fee for release of the vehicle by the owner (
 -- These options go in your policejob config file
 
 RegisterNetEvent("police:client:impounded", function()
-    TriggerClientEvent("police:client:ImpoundVehicle", false, Config.ImpoundFee)
-end)
+        if Config.ImpoundFee == nil then
+            TriggerClientEvent("police:client:ImpoundVehicle", false, 500)
+            else
+            TriggerClientEvent("police:client:ImpoundVehicle", false, Config.ImpoundFee)
+            end
+        end)
 
 RegisterNetEvent("police:client:breakout", function()
     exports['ps-ui']:Circle(function(success)
