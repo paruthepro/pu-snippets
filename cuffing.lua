@@ -65,7 +65,7 @@ CreateThread(function()
     }
     exports.ox_target:addGlobalPlayer(Cuffs)
     exports.ox_target:addGlobalVehicle(CarOptions)
-    if exports["qb-policejob"]:IsHandcuffed() then
+    if PlayerData.metadata.ishandcuffed then
         exports.ox_target:removeGlobalPlayer(Cuffs)
         exports.ox_target:addGlobalPlayer(Uncuff)
     end
