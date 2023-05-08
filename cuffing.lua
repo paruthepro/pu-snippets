@@ -24,7 +24,6 @@ RegisterNetEvent("police:client:breakout", function()
     end, math.random(1, 3), 30)
 end)
 
-local function()
 local Cuffs = {
     {
         name = 'handcuff:player',
@@ -54,27 +53,26 @@ local Uncuff = {
     },
 }
 local CarOptions = {
-{
-    name = 'vehicle:impound',
-    event = 'police:client:impounded',
-    icon = 'fa-sharp fa-solid fa-car-side',
-    label = 'Impound Vehicle',
-    groups = Config.Policejobs,
-    distance = 2.0,
-},
-{
-    name = 'vehicle:depot',
-    event = 'police:client:impounded',
-    icon = 'fa-sharp fa-solid fa-car-side',
-    label = 'Depot Vehicle',
-    groups = Config.Policejobs,
-    distance = 2.0,
-},
+    {
+        name = 'vehicle:impound',
+        event = 'police:client:impounded',
+        icon = 'fa-sharp fa-solid fa-car-side',
+        label = 'Impound Vehicle',
+        groups = Config.Policejobs,
+        distance = 2.0,
+    },
+    {
+        name = 'vehicle:depot',
+        event = 'police:client:impounded',
+        icon = 'fa-sharp fa-solid fa-car-side',
+        label = 'Depot Vehicle',
+        groups = Config.Policejobs,
+        distance = 2.0,
+    },
 }
     exports.ox_target:addGlobalPlayer(Cuffs)
     exports.ox_target:addGlobalVehicle(CarOptions)
-    if PlayerData.metadata.ishandcuffed then
+    if PlayerId == exports["qb-policejob"]:IsHandcuffed() then
         exports.ox_target:removeGlobalPlayer(Cuffs)
         exports.ox_target:addGlobalPlayer(Uncuff)
     end
-end
