@@ -24,20 +24,6 @@ RegisterNetEvent("police:client:breakout", function()
     end, math.random(1, 3), 30)
 end)
 
-RegisterNetEvent("police:client:uncuffed", function()
-    local player, distance = QBCore.Functions.GetClosestPlayer()
-    if player ~= -1 and distance < 2.0 then
-            local playerId = GetPlayerServerId(player)
-            if not IsPedInAnyVehicle(GetPlayerPed(player), false) and not cache.vehicle then
-                TriggerServerEvent("police:server:CuffPlayer", playerId, false)
-            else
-                QBCore.Functions.Notify("Player is in a vehicle!", "error")
-            end
-    else
-        QBCore.Functions.Notify("Too far from Player!", "error")
-    end
-end)
-
 CreateThread(function()
     local Cuffs = {
         {
@@ -60,7 +46,7 @@ CreateThread(function()
         },
         { -- Police Cuff removal
             name = 'uncuff:player',
-            event = 'police:client:uncuffed',
+            event = 'police:client:CuffPlayerSoft',
             icon = 'fa-solid fa-handcuffs',
             label = 'Uncuff',
             groups = Config.Policejobs,
