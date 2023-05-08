@@ -1,3 +1,6 @@
+Config.LockpickItems = {'lockpick', 'advancedlockpick'}
+-- These options go in your policejob config file
+
 RegisterNetEvent("police:client:impounded", function()
     TriggerClientEvent("police:client:ImpoundVehicle", false, Config.ImpoundFee)
 end)
