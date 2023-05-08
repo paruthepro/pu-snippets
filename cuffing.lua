@@ -3,17 +3,21 @@ Config.ImpoundFee = 500 -- Impound Fee for release of the vehicle by the owner (
 -- These options go in your policejob config file
 
 RegisterNetEvent("police:client:impounded", function()
-        if Config.ImpoundFee == nil then
-            TriggerClientEvent("police:client:ImpoundVehicle", false, 500)
-            else
-            TriggerClientEvent("police:client:ImpoundVehicle", false, Config.ImpoundFee)
-            end
-        end)
+    TriggerClientEvent("police:client:ImpoundVehicle", false, Config.ImpoundFee)
+end)
 
 RegisterNetEvent("police:client:breakout", function()
+    local chance = math.random(1, 100)
+    local player = QBCore.Functions.GetPlayer(source)
+    local playerId = GetPlayerServerId(player)
+    local CuffedPlayer = QBCore.Functions.GetPlayer(playerId)
     exports['ps-ui']:Circle(function(success)
         if success then
-            TriggerServerEvent("police:server:SetHandcuffStatus", false)
+            TriggerServerEvent("police:server:SetHandcuffStatus", CuffedPlayer, false)
+            if chance <= 50 then
+                exports.ox_inventory:RemoveItem(source, 'advancedlockpick', 1)
+                QBCore.Functions.Notify("Lockpick broke!")
+            else end
         else
             QBCore.Functions.Notify("You failed to help!")
         end
@@ -21,7 +25,17 @@ RegisterNetEvent("police:client:breakout", function()
 end)
 
 RegisterNetEvent("police:client:uncuffed", function()
-    TriggerServerEvent("police:server:SetHandcuffStatus", false)
+    local player, distance = QBCore.Functions.GetClosestPlayer()
+    if player ~= -1 and distance < 2.0 then
+            local playerId = GetPlayerServerId(player)
+            if not IsPedInAnyVehicle(GetPlayerPed(player), false) and not cache.vehicle then
+                TriggerServerEvent("police:server:CuffPlayer", playerId, false)
+            else
+                QBCore.Functions.Notify("Player is in a vehicle!", "error")
+            end
+    else
+        QBCore.Functions.Notify("Too far from Player!", "error")
+    end
 end)
 
 CreateThread(function()
@@ -41,7 +55,7 @@ CreateThread(function()
             event = 'police:client:breakout',
             icon = 'fa-solid fa-handcuffs',
             label = 'Uncuff',
-            items = Config.LockpickItems,
+            items = Config.LockpickItem,
             distance = 2.0,
         },
         { -- Police Cuff removal
