@@ -1,4 +1,4 @@
-Config.LockpickItems = {'lockpick', 'advancedlockpick'} -- Items needed for players to "lockpick" the handcuffs and free their friends
+Config.LockpickItems = {'advancedlockpick'} -- Items needed for players to "lockpick" the handcuffs and free their friends
 Config.ImpoundFee = 500 -- Impound Fee for release of the vehicle by the owner (Default = 500)
 -- These options go in your policejob config file
 
