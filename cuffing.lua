@@ -1,7 +1,6 @@
 Config.LockpickItems = {'advancedlockpick'} -- Items needed for players to "lockpick" the handcuffs and free their friends
 Config.ImpoundFee = 500 -- Impound Fee for release of the vehicle by the owner (Default = 500)
 -- These options go in your policejob config file
-
 RegisterNetEvent("police:client:impounded", function()
     local source = QBCore.Functions.GetPlayer(source)
     if Config.ImpoundFee == nil then
@@ -28,7 +27,6 @@ RegisterNetEvent("police:client:breakout", function()
         end
     end, math.random(1, 3), 30)
 end)
-
 local Cuffs = {
     {
         name = 'handcuff:player',
@@ -63,14 +61,6 @@ local CarOptions = {
         event = 'police:client:impounded',
         icon = 'fa-sharp fa-solid fa-car-side',
         label = 'Impound Vehicle',
-        groups = Config.Policejobs,
-        distance = 2.0,
-    },
-    {
-        name = 'vehicle:depot',
-        event = 'police:client:impounded',
-        icon = 'fa-sharp fa-solid fa-car-side',
-        label = 'Depot Vehicle',
         groups = Config.Policejobs,
         distance = 2.0,
     },
