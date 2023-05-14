@@ -25,8 +25,8 @@ local Cuffs = {
         event = 'police:client:CuffPlayerSoft',
         icon = 'fa-solid fa-handcuffs',
         label = 'Handcuff',
-        distance = 2.0,
         items = {Config.HandCuffItem},
+        distance = 2.0
     }
 }
 local Uncuff = {
